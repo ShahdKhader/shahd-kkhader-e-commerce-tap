@@ -2,7 +2,7 @@ import { Sequelize } from 'sequelize';
 
 export async function setupDatabaseConnection() {
   const sequelize = new Sequelize({
-    database: 'ecommerce',
+    database: 'ecommerce2',
     username: 'shahd',
     password: '123456',
     host: 'localhost',
@@ -18,3 +18,4 @@ export async function setupDatabaseConnection() {
     throw error;
   }
 }
+setupDatabaseConnection();
