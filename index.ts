@@ -2,9 +2,9 @@ import express from 'express'
 import db from './models';
 const app = express();
 app.use(express.json());
-import rout from './routes/router';
+import router from './routes/router';
 const port = process.env.PORT|| 3005;
-app.use(rout);
+app.use(router);
 
 
 db.sequelize.sync().then(()=>{
