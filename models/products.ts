@@ -14,7 +14,7 @@ interface ProductsAttributes {
   description: string;
   price: number;
   comparePrice: number;
-
+  rating: number | GLfloat;
 }
 
 module.exports = (sequelize: any, DataTypes: any) => {
@@ -26,6 +26,8 @@ module.exports = (sequelize: any, DataTypes: any) => {
     description!: string;
     price!: number;
     comparePrice!: number;
+    rating!: number | GLfloat;
+
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -96,6 +98,10 @@ module.exports = (sequelize: any, DataTypes: any) => {
       allowNull: false,
      
     },
+    rating: {
+      type: DataTypes.FLOAT,
+      allowNull: false,
+    }
   }, {
     sequelize,
     modelName: 'Products',
