@@ -15,6 +15,8 @@ interface ProductsAttributes {
   price: number;
   comparePrice: number;
   rating: number | GLfloat;
+  quantity: number;
+  discount: number;
 }
 
 module.exports = (sequelize: any, DataTypes: any) => {
@@ -27,7 +29,8 @@ module.exports = (sequelize: any, DataTypes: any) => {
     price!: number;
     comparePrice!: number;
     rating!: number | GLfloat;
-
+    quantity!: number;
+    discount!: number;
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -45,12 +48,12 @@ module.exports = (sequelize: any, DataTypes: any) => {
         foreignKey: 'productId',
         through: 'CartProducts'
       });
-      // Products.hasMany(models.Wishing, {
-      //   foreignKey: 'productId',
-      // });
-      // Products.hasMany(models.Variations, {
-      //   foreignKey: 'productId',
-      // });
+      Products.hasMany(models.Wishing, {
+        foreignKey: 'productId',
+      });
+      Products.hasMany(models.Variations, {
+        foreignKey: 'productId',
+      });
     }
   }
   Products.init({
@@ -101,6 +104,14 @@ module.exports = (sequelize: any, DataTypes: any) => {
     rating: {
       type: DataTypes.FLOAT,
       allowNull: false,
+    },
+    quantity: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    discount: {
+      type: DataTypes.FLOAT,
+      allowNull: false, 
     }
   }, {
     sequelize,

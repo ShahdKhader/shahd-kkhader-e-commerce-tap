@@ -22,12 +22,12 @@ module.exports = (sequelize: any, DataTypes: any) => {
       Users.hasMany(models.Cart, {
         foreignKey: 'userId'
       });
-      // Users.hasMany(models.Wishing, {
-      //   foreignKey: 'userId'
-      // });
-      // Users.hasMany(models.Addresses, {
-      //   foreignKey: 'userId'
-      // });
+      Users.hasMany(models.Wishing, {
+        foreignKey: 'userId'
+      });
+      Users.hasMany(models.Addresses, {
+        foreignKey: 'userId'
+      });
     }
   }
   Users.init({
