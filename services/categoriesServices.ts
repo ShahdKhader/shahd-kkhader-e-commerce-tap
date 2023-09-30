@@ -9,3 +9,13 @@ export const getAllCategories = async () => {
     throw new Error('Internal Server Error');
   }
 };
+
+export const getAllCarousel = async () => {
+  try {
+    const carousel = await db.Categories.findAll({ attributes: ['name', 'imageSrc', 'imageAlt']});
+    return carousel;
+  } catch (error) {
+    console.error('Error fetching carousel:', error);
+    throw new Error('Internal Server Error');
+  }
+};
