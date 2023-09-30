@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { getNewArrivals, getAllProducts, gethandPicked, getProductsByBrand, getLimitedEditionProduct, getDiscountedProducts,
-    getPopulerInCommunity, getProductDescription, } from '../services/productsServices';
+    getPopulerInCommunity, getProductDescription, getProductRatings} from '../services/productsServices';
 import { sendResponse } from '../utils/util';
 
 export const getAllProductsController = async (req: Request, res: Response) => {
@@ -85,3 +85,12 @@ export const ProductDescriptionController = async (req: Request, res: Response) 
     }
 };
 
+export const getProductRatingsController = async (req: Request, res: Response) => {
+  try {
+    const ratings = await getProductRatings();
+    sendResponse(res, ratings);
+  } catch (error: any) {
+    console.error('Error in getProductRatingsController:', error);
+    res.status(500).json({ error: error.message });
+  }
+};

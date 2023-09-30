@@ -2,8 +2,9 @@ import express, { Request, Response } from 'express';
 import { getAllCategoriesController, carouselImagesController } from '../controllers/categoriesController';
 import {getAllProductsController, newArrivalsController, handPickedController, shopByBrandController,
   limitedEditionProductController, DiscountedProductsController, PopulerInCommunityController, ProductDescriptionController
-  } from '../controllers/productsController';
+  , getProductRatingsController} from '../controllers/productsController';
 import {addProductToCartController} from '../controllers/cartProductController';
+import {addProductToWishingController} from '../controllers/wishingControllers';
 const router = express.Router();
 
 router.get('/', (req: Request, res: Response) => {
@@ -31,4 +32,9 @@ router.get('/getPopulerInCommunity', PopulerInCommunityController);
 router.get('/getProductDiscription', ProductDescriptionController);
 
 router.post('/addProductToCart', addProductToCartController);
+
+router.post('/addProductToWishing', addProductToWishingController);
+
+router.get('/getProductRatings', getProductRatingsController);
+
 export default router;

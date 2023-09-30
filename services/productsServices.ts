@@ -120,3 +120,15 @@ export const getProductDescription = async (productId: number) => {
     throw new Error('Internal Server Error');
     }
 };
+
+export const getProductRatings = async () => {
+  try {
+    const ratings = await db.Products.findAll({
+      attributes: ['id', 'name', 'rating'], 
+    });
+    return ratings;
+  } catch (error) {
+    console.error('Error fetching product ratings:', error);
+    throw new Error('Internal Server Error');
+  }
+};
