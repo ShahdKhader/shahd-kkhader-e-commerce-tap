@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import {addProductToCart } from '../services/cartProductServices';
+import {addProductToCart, getMyCart} from '../services/cartProductServices';
 import { sendResponse } from '../utils/util';
 
 export const addProductToCartController = async (req: Request, res: Response) => {
@@ -11,4 +11,14 @@ export const addProductToCartController = async (req: Request, res: Response) =>
       console.error('Error in addProductToCartController:', error);
       res.status(500).json({ error: error.message });
     }
+};
+
+export const myCartController = async (req: Request, res: Response) => {
+  try {
+    const myCart = await getMyCart();
+    sendResponse(res, myCart);
+  } catch (error: any) {
+    console.error('Error in myCartController:', error);
+    res.status(500).json({ error: error.message });
+  }
 };

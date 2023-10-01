@@ -17,6 +17,8 @@ interface ProductsAttributes {
   rating: number | GLfloat;
   quantity: number;
   discount: number;
+  imageUrl: string;
+  imageSrc: string;
 }
 
 module.exports = (sequelize: any, DataTypes: any) => {
@@ -31,6 +33,8 @@ module.exports = (sequelize: any, DataTypes: any) => {
     rating!: number | GLfloat;
     quantity!: number;
     discount!: number;
+    imageUrl!: string;
+    imageSrc!: string;
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -45,8 +49,8 @@ module.exports = (sequelize: any, DataTypes: any) => {
         foreignKey: 'categoryId',
       });
       Products.belongsToMany(models.Cart, {
-        foreignKey: 'productId',
-        through: 'CartProducts'
+        through: 'CartProducts',
+        foreignKey: 'productId'
       });
       Products.hasMany(models.Wishing, {
         foreignKey: 'productId',
@@ -112,6 +116,14 @@ module.exports = (sequelize: any, DataTypes: any) => {
     discount: {
       type: DataTypes.FLOAT,
       allowNull: false, 
+    },
+    imageUrl:{
+      type: DataTypes.STRING,
+      allowNull: false,
+    }, 
+    imageSrc: {
+      type: DataTypes.STRING,
+      allowNull: false,
     }
   }, {
     sequelize,

@@ -18,7 +18,7 @@ export const addProductToCart = async (userId: number, productId: number, quanti
       if (!product) {
         throw new Error('Product not found');
       }
-      
+
       const cartProduct = await db.CartProducts.create({
         productId,
         cartId: user.activeCartId,
@@ -32,3 +32,26 @@ export const addProductToCart = async (userId: number, productId: number, quanti
       throw new Error('Internal Server Error');
     }
   };
+
+  export const getMyCart = async () => {
+    try {
+        console.log('Fetching cart product details...');
+        const cartProducts = await db.CartProducts.findAll({
+          include: {
+            model: db.Products, // Include the Products model
+            required: true,
+          },
+        });
+    
+        // Extract the products from cartProducts
+        const products = cartProducts.map((cartProduct: any) => cartProduct.Product);
+    
+        console.log('Cart product details retrieved:');
+        return products;
+    } catch (error) {
+        console.error('Error fetching cart product details:', error);
+        throw new Error('Internal Server Error');
+      }
+  };
+  
+  

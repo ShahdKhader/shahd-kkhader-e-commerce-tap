@@ -3,8 +3,9 @@ import { getAllCategoriesController, carouselImagesController } from '../control
 import {getAllProductsController, newArrivalsController, handPickedController, shopByBrandController,
   limitedEditionProductController, DiscountedProductsController, PopulerInCommunityController, ProductDescriptionController
   , getProductRatingsController} from '../controllers/productsController';
-import {addProductToCartController} from '../controllers/cartProductController';
+import {addProductToCartController, myCartController} from '../controllers/cartProductController';
 import {addProductToWishingController} from '../controllers/wishingControllers';
+import {orderSummaryController} from '../controllers/ordersController';
 const router = express.Router();
 
 router.get('/', (req: Request, res: Response) => {
@@ -36,5 +37,9 @@ router.post('/addProductToCart', addProductToCartController);
 router.post('/addProductToWishing', addProductToWishingController);
 
 router.get('/getProductRatings', getProductRatingsController);
+
+router.get('/getMyCart', myCartController); 
+
+router.get('getOrderSummery', orderSummaryController);
 
 export default router;
