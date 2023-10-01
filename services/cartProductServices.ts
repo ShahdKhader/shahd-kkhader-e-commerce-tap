@@ -38,12 +38,11 @@ export const addProductToCart = async (userId: number, productId: number, quanti
         console.log('Fetching cart product details...');
         const cartProducts = await db.CartProducts.findAll({
           include: {
-            model: db.Products, // Include the Products model
+            model: db.Products, 
             required: true,
           },
         });
     
-        // Extract the products from cartProducts
         const products = cartProducts.map((cartProduct: any) => cartProduct.Product);
     
         console.log('Cart product details retrieved:');
