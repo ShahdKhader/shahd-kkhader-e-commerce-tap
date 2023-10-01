@@ -20,7 +20,12 @@ module.exports = (sequelize: any, DataTypes: any) => {
     price!: number;
     static associate(models: any) {
       // define association here
-     
+      CartProducts.belongsTo(models.Products, {
+        foreignKey: 'productId',
+      });
+      CartProducts.belongsTo(models.Cart, {
+        foreignKey: 'cartId',
+      });
       CartProducts.belongsToMany(models.VariationsOptions, {
         through: 'CPVO',
         foreignKey: 'cartProductId', 

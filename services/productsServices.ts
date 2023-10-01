@@ -121,14 +121,20 @@ export const getProductDescription = async (productId: number) => {
     }
 };
 
-export const getProductRatings = async () => {
+export const getProductRatings = async (productId: number) => {
   try {
-    const ratings = await db.Products.findAll({
-      attributes: ['id', 'name', 'rating'], 
+    const product = await db.Products.findByPk(productId, {
+      attributes: ['id', 'name', 'rating'],
     });
-    return ratings;
+
+    if (!product) {
+      throw new Error('Product not found');
+    }
+
+    return product;
   } catch (error) {
     console.error('Error fetching product ratings:', error);
     throw new Error('Internal Server Error');
   }
 };
+

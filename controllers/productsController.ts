@@ -87,7 +87,8 @@ export const ProductDescriptionController = async (req: Request, res: Response) 
 
 export const getProductRatingsController = async (req: Request, res: Response) => {
   try {
-    const ratings = await getProductRatings();
+    const productId = req.body.productId
+    const ratings = await getProductRatings(productId);
     sendResponse(res, ratings);
   } catch (error: any) {
     console.error('Error in getProductRatingsController:', error);

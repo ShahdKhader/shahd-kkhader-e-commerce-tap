@@ -15,7 +15,8 @@ export const addProductToCartController = async (req: Request, res: Response) =>
 
 export const myCartController = async (req: Request, res: Response) => {
   try {
-    const myCart = await getMyCart();
+    const userId = req.body.userId;
+    const myCart = await getMyCart(userId);
     sendResponse(res, myCart);
   } catch (error: any) {
     console.error('Error in myCartController:', error);
