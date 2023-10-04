@@ -1,97 +1,86 @@
 import { Request, Response } from 'express';
-import { getNewArrivals, getAllProducts, gethandPicked, getProductsByBrand, getLimitedEditionProduct, getDiscountedProducts,
-    getPopulerInCommunity, getProductDescription, getProductRatings} from '../services/productsServices';
+import * as ProductsServices from '../services/productsServices';
 import { sendResponse } from '../utils/util';
 
-export const getAllProductsController = async (req: Request, res: Response) => {
+export const AllProducts = async (req: Request, res: Response) => {
     try {
-      const categories = await getAllProducts();
+      const categories = await ProductsServices.getAllProducts();
       sendResponse(res, categories);
     } catch (error: any) {
-      console.error('Error in getAllProductsController :', error);
+      console.error('Error in AllProducts :', error);
       res.status(500).json({ error: error.message });
     }
   };
 
-export const newArrivalsController = async (req: Request, res: Response) => {
+export const newArrivals = async (req: Request, res: Response) => {
   try {
-    const newArrivals = await getNewArrivals();
+    const newArrivals = await ProductsServices.getNewArrivals();
     sendResponse(res, newArrivals);
   } catch (error: any) {
-    console.error('Error in newArrivalsController :', error);
+    console.error('Error in newArrivals :', error);
     res.status(500).json({ error: error.message });
   }
 };
 
-export const handPickedController = async (req: Request, res: Response) => {
+export const handPicked = async (req: Request, res: Response) => {
 try{
-    const handPicked = await gethandPicked();
+    const handPicked = await ProductsServices.getHandPicked();
     sendResponse(res, handPicked);
   } catch (error: any) {
-    console.error('Error in handPickedController :', error);
+    console.error('Error in handPicked :', error);
     res.status(500).json({ error: error.message });
   } 
 };
 
-export const shopByBrandController = async (req: Request, res: Response) => {
+export const shopByBrand = async (req: Request, res: Response) => {
     try {
-      const brandName = req.body.brandName;
-      const shopByBrand = await getProductsByBrand(brandName); 
+      const brandName = req.params.brandName;
+      const shopByBrand = await ProductsServices.getProductsByBrand(brandName); 
       sendResponse(res, shopByBrand);
     } catch (error: any) {
-      console.error('Error in shopByBrandController:', error);
+      console.error('Error in shopByBrand:', error);
       res.status(500).json({ error: error.message });
     }
 };
 
-export const limitedEditionProductController = async (req: Request, res: Response) => {
+export const limitedEditionProduct = async (req: Request, res: Response) => {
     try {
-      const limitedEditionProduct = await getLimitedEditionProduct(); 
+      const limitedEditionProduct = await ProductsServices.getLimitedEditionProduct(); 
       sendResponse(res, limitedEditionProduct);
     } catch (error: any) {
-      console.error('Error in limitedEditionProductController:', error);
+      console.error('Error in limitedEditionProduct:', error);
       res.status(500).json({ error: error.message });
     }
 };
 
-export const DiscountedProductsController = async (req: Request, res: Response) => {
+export const DiscountedProducts = async (req: Request, res: Response) => {
     try {
-      const discountedProducts = await getDiscountedProducts();
+      const discountedProducts = await ProductsServices.getDiscountedProducts();
       sendResponse(res, discountedProducts);
     } catch (error: any) {
-      console.error('Error in getDiscountedProductsController:', error);
+      console.error('Error in getDiscountedProducts:', error);
       res.status(500).json({ error: error.message });
     }
 };
 
-export const PopulerInCommunityController = async (req: Request, res: Response) => {
+export const PopulerInCommunity = async (req: Request, res: Response) => {
     try {
-      const populerInCommunity = await getPopulerInCommunity();
+      const populerInCommunity = await ProductsServices.getPopulerInCommunity();
       sendResponse(res, populerInCommunity);
     } catch (error: any) {
-      console.error('Error in getPopulerInCommunityController:', error);
+      console.error('Error in getPopulerInCommunity:', error);
       res.status(500).json({ error: error.message });
     }
 };
 
-export const ProductDescriptionController = async (req: Request, res: Response) => {
-    try {
-      const productId =  req.body.productId;
-      const ProductDescription = await getProductDescription(productId);
-      sendResponse(res, ProductDescription);
-    } catch (error: any) {
-      console.error('Error in ProductDescriptionController:', error);
-      res.status(500).json({ error: error.message });
-    }
-};
 
-export const getProductRatingsController = async (req: Request, res: Response) => {
+export const ProductRatings = async (req: Request, res: Response) => {
   try {
-    const productId = req.body.productId
-    const ratings = await getProductRatings(productId);
+    const productId = req.params.productId;
+    const ratings = await ProductsServices.getProductRatings(Number(productId));
     sendResponse(res, ratings);
   } catch (error: any) {
-    console.error('Error in getProductRatingsController:', error);
+    console.error('Error in ProductRatings:', error);
     res.status(500).json({ error: error.message });
   }
 };

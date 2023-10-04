@@ -1,25 +1,25 @@
 import { Request, Response } from 'express';
-import {addProductToCart, getMyCart} from '../services/cartProductServices';
+import * as CartProductServices from '../services/cartProductServices';
 import { sendResponse } from '../utils/util';
 
-export const addProductToCartController = async (req: Request, res: Response) => {
+export const postProductToCart = async (req: Request, res: Response) => {
     try {
       const { userId, productId, quantity } = req.body;
-      const cartProduct = await addProductToCart(userId, productId, quantity);
+      const cartProduct = await CartProductServices.addProductToCart(userId, productId, quantity);
       sendResponse(res, cartProduct);
     } catch (error: any) {
-      console.error('Error in addProductToCartController:', error);
+      console.error('Error in addProductToCart:', error);
       res.status(500).json({ error: error.message });
     }
 };
 
-export const myCartController = async (req: Request, res: Response) => {
+export const myCart = async (req: Request, res: Response) => {
   try {
-    const userId = req.body.userId;
-    const myCart = await getMyCart(userId);
+    const userId = req.params.userId;
+    const myCart = await CartProductServices.getMyCart(Number(userId));
     sendResponse(res, myCart);
   } catch (error: any) {
-    console.error('Error in myCartController:', error);
+    console.error('Error in myCart:', error);
     res.status(500).json({ error: error.message });
   }
 };

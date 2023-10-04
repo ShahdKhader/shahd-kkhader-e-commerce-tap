@@ -29,7 +29,7 @@ export const getNewArrivals = async () => {
   }
 };
 
-export const gethandPicked = async () => {
+export const getHandPicked = async () => {
     try {
         const handPicked = await db.Products.findAll({
             where: {
