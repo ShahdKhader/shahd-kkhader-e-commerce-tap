@@ -7,6 +7,7 @@ export async function setupDatabaseConnection() {
     password: '123456',
     host: 'localhost',
     dialect: 'mysql',
+    port: 3308,
   });
 
   try {
