@@ -1,12 +1,14 @@
 import express from 'express';
 import db from './models';
-
+import dotenv from 'dotenv';
 import addressesRoutes from './routes/addressesRoutes';
 import cartProductRoutes from './routes/cartProductRoutes';
 import categorysRoutes from './routes/categorysRoutes';
 import productsRoutes from './routes/productsRoutes';
 import wishingRoutes from './routes/wishingRoutes';
 import ordersRoutes from './routes/ordersRouters';
+ dotenv.config();
+ console.log(process.env.DB_USER);
 const app = express();
 app.use(express.json());
 
