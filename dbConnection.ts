@@ -1,7 +1,9 @@
 import { Sequelize } from 'sequelize';
 
 export async function setupDatabaseConnection() {
-  const sequelize = new Sequelize('postgres://pqibwogl:zQkha3u6XjHG1ntWw1RscWKF-kaC_kw3@surus.db.elephantsql.com/pqibwogl', {
+ // const sequelize = new Sequelize('postgres://pqibwogl:zQkha3u6XjHG1ntWw1RscWKF-kaC_kw3@surus.db.elephantsql.com/pqibwogl', {
+  const sequelize = new Sequelize('postgres://pqibwogl:zQkha3u6XjHG1ntWw1RscWKF-kaC_kw3@surus.db.elephantsql.com/pqibwogl?ssl=true'
+  , {
     dialect: 'postgres',
     dialectOptions: {
       ssl: true, 
