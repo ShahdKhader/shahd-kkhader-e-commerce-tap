@@ -22,8 +22,12 @@ app.use(ordersRoutes);
 
 const port = process.env.PORT || 3005;
 
-db.sequelize.sync().then(() => {
-  app.listen(port, () => {
-    console.log(`app is running on port ${port}`);
+db.sequelize.sync()
+  .then(() => {
+    app.listen(port, () => {
+      console.log(`app is running on port ${port}`);
+    });
+  })
+  .catch((error: any) => {
+    console.error(`Error starting the server: ${error.message}`);
   });
-});

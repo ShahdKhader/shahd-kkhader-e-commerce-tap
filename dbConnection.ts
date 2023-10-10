@@ -1,16 +1,13 @@
 import { NUMBER, Sequelize } from 'sequelize';
 
 export async function setupDatabaseConnection() {
-  const sequelize = new Sequelize({
-    database: process.env.DB_NAME,
-    username: process.env.DB_USER,
-    password: process.env.DB_PASS,
-    host: process.env.DB_HOST,
-    dialect: (process.env.DB_DIALECT) as 'mysql' | 'postgres',
-    port: Number(process.env.DB_PORT) ,
-    ssl: process.env.DB_SSL === '1'
+  const sequelize = new Sequelize('postgres://pqibwogl:zQkha3u6XjHG1ntWw1RscWKF-kaC_kw3@surus.db.elephantsql.com/pqibwogl', {
+    dialect: 'postgres',
+    protocol: 'postgres',
+    dialectOptions: {
+      ssl: true, 
+    },
   });
-
   try {
     await sequelize.authenticate();
     console.log('Connection has been established successfully.');
