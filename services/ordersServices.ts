@@ -2,9 +2,16 @@ import db from '../models';
 
 export const placeOrder = async (userId: number) => {
   try {
+    const user = await db.Users.findByPk(userId);
+    if (!user) {
+      throw new Error('User not found');
+    }
+
+    const activeCartId = user.activeCartId;
+
     const cartItems = await db.CartProducts.findAll({
       where: {
-        cartId: userId,
+        cartId: activeCartId,
       },
     });
 
@@ -12,24 +19,21 @@ export const placeOrder = async (userId: number) => {
     for (const cartItem of cartItems) {
       orderTotal += cartItem.price * cartItem.quantity;
     }
-
+    const tax = 0; 
+    const deliveryFee = 12;
     const newOrder = await db.Orders.create({
       status: 'Pending',
       price: orderTotal,
       discount: 0, 
       discountCoupon: 0, 
       creationDate: new Date(), 
-      tax: 0, 
-      delivaryFee: 12,
-      total: orderTotal, 
-      cartId: userId, 
+      tax: tax, 
+      delivaryFee: deliveryFee,
+      total: orderTotal + tax + deliveryFee, 
+      cartId: activeCartId, 
     });
-
-    await db.CartProducts.destroy({
-      where: {
-        cartId: userId,
-      },
-    });
+    console.log('orderTotal:', orderTotal);
+    console.log('cartItems:', cartItems);
 
       return newOrder;
     } catch (error) {

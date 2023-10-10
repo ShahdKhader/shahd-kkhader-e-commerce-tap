@@ -1,0 +1,62 @@
+📁 e-commerce-tap/
+|
+├── 📁 config/
+|   └── config.js
+|
+├── 📁 controllers/
+|   ├── addressesController.ts
+|   ├── cartProductController.ts
+|   ├── categoriesController.ts
+|   ├── ordersController.ts
+|   ├── productsController.ts
+|   └── wishingControllers.ts
+|
+├── 📁 migrations/
+|
+├── 📁 models/
+|   ├── addressess.ts
+|   ├── brands.ts
+|   ├── cart.ts
+|   ├── cartproducts.ts
+|   ├── cartproductsvariationsoptions.ts
+|   ├── categories.ts
+|   ├── index.ts
+|   ├── orders.ts
+|   ├── products.ts
+|   ├── users.ts
+|   ├── variations.ts
+|   ├── variationsoptions.ts
+|   └── wishing.ts
+|
+├── 📁 node_modules/  (auto-generated)
+|
+├── 📁 routes/
+|   ├── addressesRoutes.ts
+|   ├── cartProductRoutes.ts
+|   ├── categorysRoutes.ts
+|   ├── ordersRouters.ts
+|   ├── productsRoutes.ts
+|   └── wishingRoutes.ts
+|
+├── 📁 services/
+|   ├── addressesServices.ts
+|   ├── cartProductServices.ts
+|   ├── categoriesServices.ts
+|   ├── ordersServices.ts
+|   ├── productsServices.ts
+|   └── wishingServices.ts
+|
+├── 📁 utils/
+|   └── util.ts
+|
+├── .env
+|
+├── .gitignore
+|
+├── dbConnection.ts
+|
+├── index.ts
+|
+├── package-lock.json
+|
+└── package.json
