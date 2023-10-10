@@ -7,6 +7,7 @@ import categorysRoutes from './routes/categorysRoutes';
 import productsRoutes from './routes/productsRoutes';
 import wishingRoutes from './routes/wishingRoutes';
 import ordersRoutes from './routes/ordersRouters';
+import { setupDatabaseConnection } from './dbConnection';
  dotenv.config();
 // console.log(process.env.DB_USER);
 console.log(process.env.DB_NAME);
@@ -22,7 +23,11 @@ app.use(ordersRoutes);
 
 const port = process.env.PORT || 3005;
 
-db.sequelize.sync()
+setupDatabaseConnection() 
+  .then((sequelize) => {
+    db.sequelize = sequelize; 
+    return sequelize.sync();
+  })
   .then(() => {
     app.listen(port, () => {
       console.log(`app is running on port ${port}`);

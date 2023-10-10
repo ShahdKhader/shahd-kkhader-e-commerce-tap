@@ -1,9 +1,8 @@
-import { NUMBER, Sequelize } from 'sequelize';
+import { Sequelize } from 'sequelize';
 
 export async function setupDatabaseConnection() {
   const sequelize = new Sequelize('postgres://pqibwogl:zQkha3u6XjHG1ntWw1RscWKF-kaC_kw3@surus.db.elephantsql.com/pqibwogl', {
     dialect: 'postgres',
-    protocol: 'postgres',
     dialectOptions: {
       ssl: true, 
     },
