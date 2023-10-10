@@ -8,6 +8,7 @@ export async function setupDatabaseConnection() {
     host: process.env.DB_HOST,
     dialect: (process.env.DB_DIALECT) as 'mysql' | 'postgres',
     port: Number(process.env.DB_PORT) ,
+    ssl: process.env.DB_SSL === '1'
   });
 
   try {
