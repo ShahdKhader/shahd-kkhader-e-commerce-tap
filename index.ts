@@ -8,7 +8,8 @@ import productsRoutes from './routes/productsRoutes';
 import wishingRoutes from './routes/wishingRoutes';
 import ordersRoutes from './routes/ordersRouters';
  dotenv.config();
- console.log(process.env.DB_USER);
+// console.log(process.env.DB_USER);
+console.log(process.env.DB_NAME);
 const app = express();
 app.use(express.json());
 
