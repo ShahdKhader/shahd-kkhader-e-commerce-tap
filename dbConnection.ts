@@ -2,12 +2,12 @@ import { Sequelize } from 'sequelize';
 
 export async function setupDatabaseConnection() {
   const sequelize = new Sequelize({
-    database: process.env.BD_NAME,
-    username: process.env.DB_NAME,
+    database: process.env.DB_NAME,
+    username: process.env.DB_USER,
     password: process.env.DB_PASS,
     host: process.env.DB_HOST,
     port: Number(process.env.DB_PORT),
-    dialect: process.env.DB_DIALECT as 'mysql',
+    dialect: 'mysql',
   });
 
   try {
