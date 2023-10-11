@@ -9,8 +9,40 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      id: {
-        type: Sequelize.INTEGER
+      status: {  
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      price: {  
+        type: Sequelize.INTEGER,  
+        allowNull: false
+      },
+      discount: {  
+        type: Sequelize.INTEGER,  
+        allowNull: false
+      },
+      discountCoupon: {  
+        type: Sequelize.INTEGER, 
+        allowNull: false
+      },
+      creationDate: { 
+        type: Sequelize.DATE
+      },
+      tax: {  
+        type: Sequelize.INTEGER, 
+        allowNull: false
+      },
+      deliveryFee: {  
+        type: Sequelize.INTEGER,
+        allowNull: false
+      },
+      total: {  
+        type: Sequelize.INTEGER,  
+        allowNull: false
+      },
+      cartId: { 
+        type: Sequelize.INTEGER, 
+        allowNull: false
       },
       createdAt: {
         allowNull: false,

@@ -9,8 +9,13 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      id: {
-        type: Sequelize.INTEGER
+      cartProductId: { 
+        type: Sequelize.INTEGER,  
+        allowNull: false
+      },
+      variationOptionId: {  
+        type: Sequelize.INTEGER, 
+        allowNull: false
       },
       createdAt: {
         allowNull: false,

@@ -28,7 +28,7 @@ const port = process.env.PORT || 3005;
 setupDatabaseConnection() 
   .then((sequelize) => {
     db.sequelize = sequelize; 
-    return sequelize.sync();
+    return sequelize.sync({ force: true });
   })
   .then(() => {
     app.listen(port, () => {

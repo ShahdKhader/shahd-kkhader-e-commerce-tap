@@ -9,8 +9,45 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      id: {
-        type: Sequelize.INTEGER
+      categoryId: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+      },
+      brandId: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+      },
+      name: {
+        type: Sequelize.STRING
+      },
+      description: {
+        type: Sequelize.STRING
+      },
+      price: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+      },
+      comparePrice: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+      },
+      rating: {
+        type: Sequelize.FLOAT,
+        allowNull: false
+      },
+      quantity: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+      },
+      discount: {
+        type: Sequelize.FLOAT,
+        allowNull: false
+      },
+      imageUrl: {
+        type: Sequelize.STRING
+      },
+      imageSrc: {
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,

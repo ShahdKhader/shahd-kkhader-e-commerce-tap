@@ -9,23 +9,20 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      unitNumber: {
-        type: Sequelize.STRING
-      },
-      streetNumber: {
-        type: Sequelize.STRING
-      },
-      addressLine: {
+      country: {
         type: Sequelize.STRING
       },
       city: {
         type: Sequelize.STRING
       },
-      region: {
+      street: {
         type: Sequelize.STRING
       },
-      postalCode: {
-        type: Sequelize.STRING
+      userId: {
+        type: Sequelize.INTEGER
+      },
+      orderId: {
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
