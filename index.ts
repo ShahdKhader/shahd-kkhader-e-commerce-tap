@@ -11,6 +11,8 @@ import { setupDatabaseConnection } from './dbConnection';
  dotenv.config();
 // console.log(process.env.DB_USER);
 console.log(process.env.DB_NAME);
+console.log(process.env.DB_HOST);
+
 const app = express();
 app.use(express.json());
 
