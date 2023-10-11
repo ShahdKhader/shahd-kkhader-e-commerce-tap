@@ -13,9 +13,7 @@ let sequelize: any;
 if (config.use_env_variable) {
   sequelize = new Sequelize(process.env[config.use_env_variable], config);
 } else {
- // sequelize = new Sequelize(config.database, config.username, config.password, config);
- sequelize = new Sequelize('postgres://pqibwogl:zQkha3u6XjHG1ntWw1RscWKF-kaC_kw3@surus.db.elephantsql.com/pqibwogl', config);
-
+  sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
 
 fs
