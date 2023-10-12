@@ -1,5 +1,4 @@
 import db from '../models';
-import { Op } from 'sequelize';
 
 export const addProductToCart = async (userId: number, productId: number, quantity: number) => {
   try {

@@ -35,9 +35,9 @@ export const placeOrder = async (userId: number) => {
     console.log('orderTotal:', orderTotal);
     console.log('cartItems:', cartItems);
 
-      return newOrder;
-    } catch (error) {
-        console.error('Error in placing order:', error);
-        throw new Error('Internal Server Error');
-      }
-    };
+    return newOrder;
+  } catch (error) {
+    console.error('Error in placing order:', error);
+    throw new Error('Internal Server Error');
+  }
+};

@@ -1,38 +1,25 @@
 'use strict';
 import {
-  Model
+  Model,
+  DataTypes,
 } from 'sequelize';
+import sequelize from './sequelize';
 
 interface CartProductsAttributes{
-  id: number;
+  id?: number;
   productId: number;
   cartId: number;
   quantity: number;
   price: number;
 }
 
-module.exports = (sequelize: any, DataTypes: any) => {
+
   class CartProducts extends Model<CartProductsAttributes> implements CartProductsAttributes {
     id!: number;
     productId!: number;
     cartId!: number;
     quantity!: number;
     price!: number;
-    static associate(models: any) {
-      // define association here
-      CartProducts.belongsTo(models.Products, {
-        foreignKey: 'productId',
-      });
-      CartProducts.belongsTo(models.Cart, {
-        foreignKey: 'cartId',
-      });
-      CartProducts.belongsToMany(models.VariationsOptions, {
-        through: 'CPVO',
-        foreignKey: 'cartProductId', 
-        otherKey: 'variationOptionId',
-      });
-
-    }
   }
   CartProducts.init({
     id: {
@@ -69,5 +56,5 @@ module.exports = (sequelize: any, DataTypes: any) => {
     sequelize,
     modelName: 'CartProducts',
   });
-  return CartProducts;
-};
+
+export default CartProducts;

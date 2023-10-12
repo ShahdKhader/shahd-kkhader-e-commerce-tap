@@ -1,5 +1,5 @@
 import db from '../models';
-import { Op } from 'sequelize';
+import { Op, WhereAttributeHash } from 'sequelize';
 
 export const getAllProducts = async () => {
     try {
@@ -17,10 +17,10 @@ export const getNewArrivals = async () => {
     threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
     const newArrivals = await db.Products.findAll({
         where: {
-          createdAt: {
-            [Op.gte]: threeMonthsAgo,
-          },
-        },
+            createdAt: {
+              [Op.gte]: threeMonthsAgo,
+            },
+        } as WhereAttributeHash 
       });
     return newArrivals;
   } catch (error) {

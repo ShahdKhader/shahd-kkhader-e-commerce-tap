@@ -1,5 +1,4 @@
 import express from 'express';
-import db from './models';
 import dotenv from 'dotenv';
 import addressesRoutes from './routes/addressesRoutes';
 import cartProductRoutes from './routes/cartProductRoutes';
@@ -8,10 +7,7 @@ import productsRoutes from './routes/productsRoutes';
 import wishingRoutes from './routes/wishingRoutes';
 import ordersRoutes from './routes/ordersRouters';
 import { setupDatabaseConnection } from './dbConnection';
- dotenv.config();
-// console.log(process.env.DB_USER);
-console.log(process.env.DB_NAME);
-console.log(process.env.DB_HOST);
+dotenv.config();
 
 const app = express();
 app.use(express.json());
@@ -23,12 +19,11 @@ app.use(productsRoutes);
 app.use(wishingRoutes);
 app.use(ordersRoutes);
 
-const port = process.env.PORT || 3005;
+const port = process.env.PORT || 5000;
 
 setupDatabaseConnection() 
   .then((sequelize) => {
-    db.sequelize = sequelize; 
-    return sequelize.sync({ force: true });
+    return sequelize.sync({ force: false });
   })
   .then(() => {
     app.listen(port, () => {

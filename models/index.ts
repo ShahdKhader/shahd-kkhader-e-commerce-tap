@@ -1,43 +1,141 @@
-'use strict';
+import sequelize from './sequelize';
 
-const fs = require('fs');
-const path = require('path');
-const Sequelize = require('sequelize');
-const process = require('process');
-const basename = path.basename(__filename);
-const env = process.env.NODE_ENV || 'development';
-const config = require(__dirname + '/../config/config.js')[env];
-const db: any = {};
+import Brands from './brands';
+import Categories from './categories';
+import Addresses from './addressess';
+import Users from './users';
 
-let sequelize: any;
-if (config.use_env_variable) {
-  sequelize = new Sequelize(process.env[config.use_env_variable], config);
-} else {
-  sequelize = new Sequelize(config.database, config.username, config.password, config);
-}
+import Cart from './cart';
+import CartProducts from './cartproducts';
+import CartProductsVariationsOptions from './cartproductsvariationsoptions';
 
-fs
-  .readdirSync(__dirname)
-  .filter((file: string) => {
-    return (
-      file.indexOf('.') !== 0 &&
-      file !== basename &&
-      file.slice(-3) === '.ts' &&
-      file.indexOf('.test.ts') === -1 
-    );
-  })
-  .forEach((file: any) => {
-    const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
-    db[model.name] = model;
-  });
+import Orders from './orders';
+import Products from './products';
 
-Object.keys(db).forEach(modelName => {
-  if (db[modelName].associate) {
-    db[modelName].associate(db);
-  }
+import Variation from './variations';
+import VariationOption from './variationsoptions';
+import Wishing from './wishing';
+
+
+// brands
+Brands.hasMany(Products, {
+  foreignKey: 'brandId',
+})
+
+// categories
+Categories.hasMany(Products, {
+  foreignKey: 'categoryId',
 });
 
-db.sequelize = sequelize;
-db.Sequelize = Sequelize;
+// products
+Products.belongsTo(Brands, {
+  foreignKey: 'brandId',
+});
+Products.belongsTo(Categories, {
+  foreignKey: 'categoryId',
+});
+Products.belongsToMany(Cart, {
+  through: 'CartProducts',
+  foreignKey: 'productId'
+});
+Products.hasMany(Wishing, {
+  foreignKey: 'productId',
+});
+Products.hasMany(Variation, {
+  foreignKey: 'productId',
+});
 
-export default db;
+// user:
+Users.hasMany(Cart, {
+  foreignKey: 'userId'
+});
+Users.hasMany(Wishing, {
+  foreignKey: 'userId'
+});
+Users.hasMany(Addresses, {
+  foreignKey: 'userId'
+});
+
+
+// address
+Addresses.belongsTo(Orders, {
+  foreignKey: 'orderId'
+});
+Addresses.belongsTo(Users, {
+  foreignKey: 'userId'
+});
+
+// cart
+Cart.belongsTo(Users, {
+  foreignKey: 'userId'
+});
+Cart.belongsToMany(Products, {
+  through: 'CartProducts',
+  foreignKey: 'cartId',
+});
+Cart.hasMany(Orders, {
+  foreignKey: 'cartId'
+})
+
+// order
+Orders.belongsTo(Cart, {
+  foreignKey: 'cartId'
+});
+Orders.hasMany(Addresses, {
+  foreignKey: 'orderId'
+});
+
+// cart products
+CartProducts.belongsTo(Products, {
+  foreignKey: 'productId',
+});
+CartProducts.belongsTo(Cart, {
+  foreignKey: 'cartId',
+});
+CartProducts.belongsToMany(VariationOption, {
+  through: 'CPVO',
+  foreignKey: 'cartProductId', 
+  otherKey: 'variationOptionId',
+});
+
+
+VariationOption.belongsTo(Variation, {
+  foreignKey: 'variationId',
+});
+VariationOption.belongsToMany(CartProducts, {
+  through: 'CPVO',
+  foreignKey: 'variationOptionId', 
+  otherKey: 'cartProductId',
+});
+
+// Variation
+Variation.belongsTo(Products, {
+  foreignKey: 'productId',
+});
+Variation.hasMany(VariationOption,{
+  foreignKey: 'variationId',
+});
+
+// wishing:
+Wishing.belongsTo(Users, {
+  foreignKey: 'userId',
+});
+Wishing.belongsTo(Products, {
+  foreignKey: 'productId',
+})
+
+export default {
+  Addresses,
+  Brands,
+  Cart,
+  CartProducts,
+  CartProductsVariationsOptions,
+  Categories,
+  Orders,
+  Products,
+  Users,
+  Variation,
+  VariationOption,
+  Wishing,
+  sequelize,
+}

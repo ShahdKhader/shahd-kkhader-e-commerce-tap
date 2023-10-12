@@ -1,10 +1,9 @@
 'use strict';
 import {
+  Model,
   DataTypes,
-  Model
 } from 'sequelize';
-import sequelize from 'sequelize/types/sequelize';
-import models from '.';
+import sequelize from './sequelize';
 
 interface ProductsAttributes {
   id: number;
@@ -21,113 +20,88 @@ interface ProductsAttributes {
   imageSrc: string;
 }
 
-module.exports = (sequelize: any, DataTypes: any) => {
-  class Products extends Model<ProductsAttributes> implements ProductsAttributes {
-    id!: number;
-    categoryId!: number;
-    brandId!: number;
-    name!: string;
-    description!: string;
-    price!: number;
-    comparePrice!: number;
-    rating!: number | GLfloat;
-    quantity!: number;
-    discount!: number;
-    imageUrl!: string;
-    imageSrc!: string;
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models: any) {
-      //define association here
-      Products.belongsTo(models.Brands, {
-        foreignKey: 'brandId',
-      });
-      Products.belongsTo(models.Categories, {
-        foreignKey: 'categoryId',
-      });
-      Products.belongsToMany(models.Cart, {
-        through: 'CartProducts',
-        foreignKey: 'productId'
-      });
-      Products.hasMany(models.Wishing, {
-        foreignKey: 'productId',
-      });
-      Products.hasMany(models.Variations, {
-        foreignKey: 'productId',
-      });
+class Products extends Model<ProductsAttributes> implements ProductsAttributes {
+  id!: number;
+  categoryId!: number;
+  brandId!: number;
+  name!: string;
+  description!: string;
+  price!: number;
+  comparePrice!: number;
+  rating!: number | GLfloat;
+  quantity!: number;
+  discount!: number;
+  imageUrl!: string;
+  imageSrc!: string;
+}
+Products.init({
+  id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    primaryKey: true,
+    autoIncrement: true
+  },
+  categoryId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references:{
+      model: 'Categories',
+      key : 'id'
     }
-  }
-  Products.init({
-    id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true,
-      autoIncrement: true
-    },
-    categoryId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references:{
-        model: 'Categories',
-        key : 'id'
-      }
-      
-    },
-    brandId:{
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references:{
-        model: 'Brands',
-        key : 'id'
-      }
-      
-    },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
     
-    },
-    description: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      
-    },
-    price: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      
-    },
-    comparePrice: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-     
-    },
-    rating: {
-      type: DataTypes.FLOAT,
-      allowNull: false,
-    },
-    quantity: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    discount: {
-      type: DataTypes.FLOAT,
-      allowNull: false, 
-    },
-    imageUrl:{
-      type: DataTypes.STRING,
-      allowNull: false,
-    }, 
-    imageSrc: {
-      type: DataTypes.STRING,
-      allowNull: false,
+  },
+  brandId:{
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references:{
+      model: 'Brands',
+      key : 'id'
     }
-  }, {
-    sequelize,
-    modelName: 'Products',
-  });
-  return Products;
-};
+    
+  },
+  name: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  
+  },
+  description: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    
+  },
+  price: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    
+  },
+  comparePrice: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    
+  },
+  rating: {
+    type: DataTypes.FLOAT,
+    allowNull: false,
+  },
+  quantity: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  discount: {
+    type: DataTypes.FLOAT,
+    allowNull: false, 
+  },
+  imageUrl:{
+    type: DataTypes.STRING,
+    allowNull: false,
+  }, 
+  imageSrc: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  }
+}, {
+  sequelize,
+  modelName: 'Products',
+});
+
+export default Products;
