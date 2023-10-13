@@ -5,19 +5,19 @@ import {
 } from 'sequelize';
 import sequelize  from './sequelize';
 
-interface BrandsAttributes{
+interface BrandAttributes{
   id: number;
   name: string;
   description: string;
 }
 
-class Brands extends Model<BrandsAttributes> implements BrandsAttributes {
+class Brand extends Model<BrandAttributes> implements BrandAttributes {
   id!: number;
   name!: string;
   description!: string;
 }
 
-Brands.init({
+Brand.init({
   id: {
     type: DataTypes.INTEGER,
     allowNull: false,
@@ -34,7 +34,8 @@ Brands.init({
   }
 }, {
   sequelize,
-  modelName: 'Brands',
+  modelName: 'Brand',
+  tableName: 'Brand',
 });
 
-export default Brands;
+export default Brand;

@@ -2,7 +2,7 @@ import db from '../models';
 
 export const addProductToCart = async (userId: number, productId: number, quantity: number) => {
   try {
-    const user = await db.Users.findOne({
+    const user = await db.User.findOne({
       where: { id: userId },
     });
 
@@ -12,7 +12,7 @@ export const addProductToCart = async (userId: number, productId: number, quanti
 
     const cartId = user.activeCartId;
 
-    const existingCartProduct = await db.CartProducts.findOne({
+    const existingCartProduct = await db.CartProduct.findOne({
       where: { cartId, productId },
     });
 
@@ -22,7 +22,7 @@ export const addProductToCart = async (userId: number, productId: number, quanti
       return existingCartProduct;
     }
 
-    const product = await db.Products.findOne({
+    const product = await db.Product.findOne({
       where: { id: productId },
     });
 
@@ -30,7 +30,7 @@ export const addProductToCart = async (userId: number, productId: number, quanti
       throw new Error('Product not found');
     }
 
-    const cartProduct = await db.CartProducts.create({
+    const cartProduct = await db.CartProduct.create({
       productId,
       cartId,
       quantity,
@@ -47,18 +47,18 @@ export const addProductToCart = async (userId: number, productId: number, quanti
 
   export const getMyCart = async (userId: number) => {
     try {
-      const user = await db.Users.findByPk(userId);
+      const user = await db.User.findByPk(userId);
       if (!user) {
         throw new Error('User not found');
       }
   
       const cartId = user.activeCartId;
   
-      const cartProducts = await db.CartProducts.findAll({
+      const cartProducts = await db.CartProduct.findAll({
         where: { cartId },
         include: [
           {
-            model: db.Products,
+            model: db.Product,
             attributes: ['name', 'description', 'price', 'quantity'],
           },
         ],

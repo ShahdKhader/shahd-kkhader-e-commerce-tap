@@ -27,7 +27,7 @@ CPVO.init({
     type: DataTypes.INTEGER,
     allowNull: false,
     references:{
-      model: 'CartProducts',
+      model: 'CartProduct',
       key : 'id'
     }
   },
@@ -35,7 +35,7 @@ CPVO.init({
     type: DataTypes.INTEGER,
     allowNull: false,
     references:{
-      model: 'VariationsOptions',
+      model: 'VariationOption',
       key : 'id'
     }
   }
@@ -43,6 +43,8 @@ CPVO.init({
 
   sequelize,
   modelName: 'CPVO',
+  tableName: 'CPVO',
+
 });
 
 export default CPVO;

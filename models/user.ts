@@ -4,16 +4,16 @@ import {
 } from 'sequelize';
 import sequelize from './sequelize';
 
-interface UsersAttributes {
+interface UserAttributes {
   id: number;
   activeCartId: number;
 }
 
-class Users extends Model<UsersAttributes> implements UsersAttributes {
+class User extends Model<UserAttributes> implements UserAttributes {
   id!: number;
   activeCartId!: number;
 }
-Users.init({
+User.init({
   id: {
     type: DataTypes.INTEGER,
     allowNull: false,
@@ -26,7 +26,9 @@ Users.init({
   }
 }, {
   sequelize,
-  modelName: 'Users',
+  modelName: 'User',
+  tableName: 'User',
+
 });
 
-export default Users;
+export default User;

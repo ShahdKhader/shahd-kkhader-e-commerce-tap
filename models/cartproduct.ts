@@ -5,7 +5,7 @@ import {
 } from 'sequelize';
 import sequelize from './sequelize';
 
-interface CartProductsAttributes{
+interface CartProductAttributes{
   id?: number;
   productId: number;
   cartId: number;
@@ -14,14 +14,14 @@ interface CartProductsAttributes{
 }
 
 
-  class CartProducts extends Model<CartProductsAttributes> implements CartProductsAttributes {
+  class CartProduct extends Model<CartProductAttributes> implements CartProductAttributes {
     id!: number;
     productId!: number;
     cartId!: number;
     quantity!: number;
     price!: number;
   }
-  CartProducts.init({
+  CartProduct.init({
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -32,7 +32,7 @@ interface CartProductsAttributes{
       type: DataTypes.INTEGER,
       allowNull: false,
       references:{
-        model: 'Products',
+        model: 'Product',
         key : 'id'
       }
     },
@@ -54,7 +54,9 @@ interface CartProductsAttributes{
     }
   }, {
     sequelize,
-    modelName: 'CartProducts',
+    modelName: 'CartProduct',
+    tableName: 'CartProduct',
+
   });
 
-export default CartProducts;
+export default CartProduct;

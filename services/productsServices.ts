@@ -3,7 +3,7 @@ import { Op, WhereAttributeHash } from 'sequelize';
 
 export const getAllProducts = async () => {
     try {
-      const categories = await db.Products.findAll();
+      const categories = await db.Product.findAll();
       return categories;
     } catch (error) {
       console.error('Error fetching products:', error);
@@ -15,7 +15,7 @@ export const getNewArrivals = async () => {
   try {
     const threeMonthsAgo = new Date();
     threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
-    const newArrivals = await db.Products.findAll({
+    const newArrivals = await db.Product.findAll({
         where: {
             createdAt: {
               [Op.gte]: threeMonthsAgo,
@@ -31,7 +31,7 @@ export const getNewArrivals = async () => {
 
 export const getHandPicked = async () => {
     try {
-        const handPicked = await db.Products.findAll({
+        const handPicked = await db.Product.findAll({
             where: {
                 rating: { [Op.gt]: 4.5 },
                 price: { [Op.lt]: 100 },
@@ -46,7 +46,7 @@ export const getHandPicked = async () => {
 
 export const getProductsByBrand = async (brandName: string) => {
     try {
-      const brand = await db.Brands.findOne({
+      const brand = await db.Brand.findOne({
         where: { name: brandName },
       });
   
@@ -54,7 +54,7 @@ export const getProductsByBrand = async (brandName: string) => {
         return { success: false, message: 'Brand not found' };
       }
   
-      const products = await db.Products.findAll({
+      const products = await db.Product.findAll({
         where: {
           brandId: brand.id,
         },
@@ -68,7 +68,7 @@ export const getProductsByBrand = async (brandName: string) => {
 
 export const getLimitedEditionProduct = async () => {
     try {
-        const lowQuantityProducts = await db.Products.findAll({
+        const lowQuantityProducts = await db.Product.findAll({
             where: { quantity: {[Op.lt]: 20} },
           });
     
@@ -81,7 +81,7 @@ export const getLimitedEditionProduct = async () => {
 
 export const getDiscountedProducts = async () => {
     try {
-        const discountedProducts = await db.Products.findAll({
+        const discountedProducts = await db.Product.findAll({
             where: {discount: { [Op.gte]: 15}},
           });
       return discountedProducts;
@@ -93,7 +93,7 @@ export const getDiscountedProducts = async () => {
 
 export const getPopulerInCommunity = async () => {
     try {
-        const PopulerInCommunity = await db.Products.findAll({
+        const PopulerInCommunity = await db.Product.findAll({
             where: { rating: {[Op.gt]: 4.5 }},
           });
       return PopulerInCommunity;
@@ -105,7 +105,7 @@ export const getPopulerInCommunity = async () => {
 
 export const getProductDescription = async (productId: number) => {
     try {
-      const product = await db.Products.findOne({
+      const product = await db.Product.findOne({
         where: { id: productId },
       });
   
@@ -123,7 +123,7 @@ export const getProductDescription = async (productId: number) => {
 
 export const getProductRatings = async (productId: number) => {
   try {
-    const product = await db.Products.findByPk(productId, {
+    const product = await db.Product.findByPk(productId, {
       attributes: ['id', 'name', 'rating'],
     });
 

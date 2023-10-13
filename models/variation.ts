@@ -5,21 +5,21 @@ import {
 } from 'sequelize';
 import sequelize from './sequelize';
 
-interface VariationsOptionsAttributes{
+interface VariationAttributes{
   id: number;
   name: string;
   description: string;
-  variationId: number;
+  productId: number;
 }
 
-
-class VariationsOptions extends Model<VariationsOptionsAttributes> implements VariationsOptionsAttributes {
+class Variation extends Model<VariationAttributes> implements VariationAttributes {
   id!: number;
   name!: string;
   description!: string;
-  variationId!: number;
+  productId!: number; 
+
 }
-VariationsOptions.init({
+Variation.init({
   id: {
     type: DataTypes.INTEGER,
     allowNull: false,
@@ -34,16 +34,19 @@ VariationsOptions.init({
     type: DataTypes.STRING,
     allowNull: false,
   },
-  variationId: {
+  productId: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references:{
-      model: 'Variations',
+      model: 'Product',
       key : 'id'
     }
-  }  }, {
+  }
+}, {
   sequelize,
-  modelName: 'VariationsOptions',
+  modelName: 'Variation',
+  tableName: 'Variation',
+
 });
 
-export default VariationsOptions;
+  export default Variation;

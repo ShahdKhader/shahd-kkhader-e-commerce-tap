@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
-import * as CategoriesServices from '../services/categoriesServices';
+import * as CategoryServices from '../services/categoriesServices';
 import { sendResponse } from '../utils/util';
 export const AllCategories = async (req: Request, res: Response) => {
   try {
-    const categories = await CategoriesServices.getAllCategories();
+    const categories = await CategoryServices.getAllCategories();
     sendResponse(res, categories);
   } catch (error: any) {
     console.error('Error in getAllCategories :', error);
@@ -13,7 +13,7 @@ export const AllCategories = async (req: Request, res: Response) => {
 
 export const carouselImages = async (req: Request, res: Response) => {
   try {
-    const carousel = await CategoriesServices.getAllCarousel();
+    const carousel = await CategoryServices.getAllCarousel();
     sendResponse(res, carousel);
   } catch (error: any) {
     console.error('Error in carouselImages: ', error);

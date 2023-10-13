@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
-import * as ProductsServices from '../services/productsServices';
+import * as ProductServices from '../services/productsServices';
 import { sendResponse } from '../utils/util';
 
 export const AllProducts = async (req: Request, res: Response) => {
     try {
-      const categories = await ProductsServices.getAllProducts();
+      const categories = await ProductServices.getAllProducts();
       sendResponse(res, categories);
     } catch (error: any) {
       console.error('Error in AllProducts :', error);
@@ -14,7 +14,7 @@ export const AllProducts = async (req: Request, res: Response) => {
 
 export const newArrivals = async (req: Request, res: Response) => {
   try {
-    const newArrivals = await ProductsServices.getNewArrivals();
+    const newArrivals = await ProductServices.getNewArrivals();
     sendResponse(res, newArrivals);
   } catch (error: any) {
     console.error('Error in newArrivals :', error);
@@ -24,7 +24,7 @@ export const newArrivals = async (req: Request, res: Response) => {
 
 export const handPicked = async (req: Request, res: Response) => {
 try{
-    const handPicked = await ProductsServices.getHandPicked();
+    const handPicked = await ProductServices.getHandPicked();
     sendResponse(res, handPicked);
   } catch (error: any) {
     console.error('Error in handPicked :', error);
@@ -35,7 +35,7 @@ try{
 export const shopByBrand = async (req: Request, res: Response) => {
     try {
       const brandName = req.params.brandName;
-      const shopByBrand = await ProductsServices.getProductsByBrand(brandName); 
+      const shopByBrand = await ProductServices.getProductsByBrand(brandName); 
       sendResponse(res, shopByBrand);
     } catch (error: any) {
       console.error('Error in shopByBrand:', error);
@@ -45,7 +45,7 @@ export const shopByBrand = async (req: Request, res: Response) => {
 
 export const limitedEditionProduct = async (req: Request, res: Response) => {
     try {
-      const limitedEditionProduct = await ProductsServices.getLimitedEditionProduct(); 
+      const limitedEditionProduct = await ProductServices.getLimitedEditionProduct(); 
       sendResponse(res, limitedEditionProduct);
     } catch (error: any) {
       console.error('Error in limitedEditionProduct:', error);
@@ -55,7 +55,7 @@ export const limitedEditionProduct = async (req: Request, res: Response) => {
 
 export const DiscountedProducts = async (req: Request, res: Response) => {
     try {
-      const discountedProducts = await ProductsServices.getDiscountedProducts();
+      const discountedProducts = await ProductServices.getDiscountedProducts();
       sendResponse(res, discountedProducts);
     } catch (error: any) {
       console.error('Error in getDiscountedProducts:', error);
@@ -65,7 +65,7 @@ export const DiscountedProducts = async (req: Request, res: Response) => {
 
 export const PopulerInCommunity = async (req: Request, res: Response) => {
     try {
-      const populerInCommunity = await ProductsServices.getPopulerInCommunity();
+      const populerInCommunity = await ProductServices.getPopulerInCommunity();
       sendResponse(res, populerInCommunity);
     } catch (error: any) {
       console.error('Error in getPopulerInCommunity:', error);
@@ -77,7 +77,7 @@ export const PopulerInCommunity = async (req: Request, res: Response) => {
 export const ProductRatings = async (req: Request, res: Response) => {
   try {
     const productId = req.params.productId;
-    const ratings = await ProductsServices.getProductRatings(Number(productId));
+    const ratings = await ProductServices.getProductRatings(Number(productId));
     sendResponse(res, ratings);
   } catch (error: any) {
     console.error('Error in ProductRatings:', error);

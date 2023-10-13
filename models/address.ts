@@ -5,7 +5,7 @@ import {
 } from 'sequelize';
 import sequelize from './sequelize';
 
-interface AddressesAttributes {
+interface AddressAttributes {
   id: number;
   country: string;
   city: string;
@@ -14,7 +14,7 @@ interface AddressesAttributes {
   orderId: number;
 }
 
-class Addresses extends Model<AddressesAttributes> implements AddressesAttributes {
+class Address extends Model<AddressAttributes> implements AddressAttributes {
   id!: number;
   country!: string;
   city!: string;
@@ -22,7 +22,7 @@ class Addresses extends Model<AddressesAttributes> implements AddressesAttribute
   userId!: number;
   orderId!: number;
 }
-Addresses.init({
+Address.init({
   id: {
     type: DataTypes.INTEGER,
     allowNull: false,
@@ -45,7 +45,7 @@ Addresses.init({
     type: DataTypes.INTEGER,
     allowNull: false,
     references:{
-      model: 'Users',
+      model: 'User',
       key : 'id'
     }
   },
@@ -53,14 +53,15 @@ Addresses.init({
     type: DataTypes.INTEGER,
     allowNull: false,
     references:{
-      model: 'Orders',
+      model: 'Order',
       key : 'id'
     }
   }
 }, {
   sequelize,
-  modelName: 'Addresses',
+  modelName: 'Address',
+  tableName: 'Address',
 });
 
 
-export default Addresses;
+export default Address;

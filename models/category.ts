@@ -2,24 +2,25 @@
 import {
   Model,
   DataTypes,
-} from 'sequelize';
+} from'sequelize';
 import sequelize from './sequelize';
 
-interface VariationsAttributes{
+interface CategoryAttributes{
   id: number;
   name: string;
   description: string;
-  productId: number;
+  imageSrc: string;
+  imageAlt: string;
 }
 
-class Variations extends Model<VariationsAttributes> implements VariationsAttributes {
+class Category extends Model<CategoryAttributes> implements CategoryAttributes{
   id!: number;
   name!: string;
   description!: string;
-  productId!: number; 
-
+  imageSrc!: string;
+  imageAlt!: string;  
 }
-Variations.init({
+Category.init({
   id: {
     type: DataTypes.INTEGER,
     allowNull: false,
@@ -34,17 +35,19 @@ Variations.init({
     type: DataTypes.STRING,
     allowNull: false,
   },
-  productId: {
-    type: DataTypes.INTEGER,
+  imageSrc: {
+    type: DataTypes.STRING,
     allowNull: false,
-    references:{
-      model: 'Products',
-      key : 'id'
-    }
+  },
+  imageAlt: {
+    type: DataTypes.STRING,
+    allowNull: false,
   }
 }, {
   sequelize,
-  modelName: 'Variations',
+  modelName: 'Category',
+  tableName: 'Category',
+
 });
 
-  export default Variations;
+export default Category;

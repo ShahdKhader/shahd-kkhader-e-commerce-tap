@@ -30,13 +30,14 @@ Cart.init({
     type: DataTypes.INTEGER,
     allowNull: false,
     references:{
-      model: 'Users',
+      model: 'User',
       key : 'id'
     }
   }
 }, {
   sequelize,
   modelName: 'Cart',
+  tableName: 'Cart',
 });
 
 export default Cart;

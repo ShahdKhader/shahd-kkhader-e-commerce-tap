@@ -5,7 +5,7 @@ import {
 } from 'sequelize';
 import sequelize from './sequelize';
 
-interface ProductsAttributes {
+interface ProductAttributes {
   id: number;
   categoryId: number;
   brandId: number;
@@ -20,7 +20,7 @@ interface ProductsAttributes {
   imageSrc: string;
 }
 
-class Products extends Model<ProductsAttributes> implements ProductsAttributes {
+class Product extends Model<ProductAttributes> implements ProductAttributes {
   id!: number;
   categoryId!: number;
   brandId!: number;
@@ -34,7 +34,7 @@ class Products extends Model<ProductsAttributes> implements ProductsAttributes {
   imageUrl!: string;
   imageSrc!: string;
 }
-Products.init({
+Product.init({
   id: {
     type: DataTypes.INTEGER,
     allowNull: false,
@@ -45,7 +45,7 @@ Products.init({
     type: DataTypes.INTEGER,
     allowNull: false,
     references:{
-      model: 'Categories',
+      model: 'Category',
       key : 'id'
     }
     
@@ -54,7 +54,7 @@ Products.init({
     type: DataTypes.INTEGER,
     allowNull: false,
     references:{
-      model: 'Brands',
+      model: 'Brand',
       key : 'id'
     }
     
@@ -101,7 +101,9 @@ Products.init({
   }
 }, {
   sequelize,
-  modelName: 'Products',
+  modelName: 'Product',
+  tableName: 'Product',
+
 });
 
-export default Products;
+export default Product;

@@ -2,7 +2,7 @@ import db from '../models';
 
 export const addToWishlist = async (userId: number, productId: number) => {
   try {
-    const user = await db.Users.findOne({
+    const user = await db.User.findOne({
       where: { id: userId },
     });
 
@@ -10,7 +10,7 @@ export const addToWishlist = async (userId: number, productId: number) => {
       throw new Error('User not found');
     }
 
-    const product = await db.Products.findOne({
+    const product = await db.Product.findOne({
       where: { id: productId },
     });
 

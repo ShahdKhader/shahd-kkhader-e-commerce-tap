@@ -27,7 +27,7 @@ Wishing.init({
     type: DataTypes.INTEGER,
     allowNull: false,
     references:{
-      model: 'Users',
+      model: 'User',
       key : 'id'
     }
   },
@@ -35,13 +35,15 @@ Wishing.init({
     type: DataTypes.INTEGER,
     allowNull: false,
     references:{
-      model: 'Products',
+      model: 'Product',
       key : 'id'
     }
   }
 }, {
   sequelize,
   modelName: 'Wishing',
+  tableName: 'Wishing',
+
 });
 
 export default Wishing;

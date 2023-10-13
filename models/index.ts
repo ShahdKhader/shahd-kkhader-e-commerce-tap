@@ -1,139 +1,142 @@
 import sequelize from './sequelize';
-
-import Brands from './brands';
-import Categories from './categories';
-import Addresses from './addressess';
-import Users from './users';
-
+import User from './user';
+import Brand from './brand';
+import Category from './category';
+import Product from './product';
+import Variation from './variation';
+import VariationOption from './variationoption';
 import Cart from './cart';
-import CartProducts from './cartproducts';
-import CartProductsVariationsOptions from './cartproductsvariationsoptions';
-
-import Orders from './orders';
-import Products from './products';
-
-import Variation from './variations';
-import VariationOption from './variationsoptions';
+import CartProduct from './cartproduct';
+import CartProductVariationOption from './cartproductvariationoption';
+import Order from './order';
+import Address from './address';
 import Wishing from './wishing';
 
+// user:
+User.hasMany(Cart, {
+  foreignKey: 'userId'
+});
+User.hasMany(Wishing, {
+  foreignKey: 'userId'
+});
+User.hasMany(Address, {
+  foreignKey: 'userId'
+});
 
 // brands
-Brands.hasMany(Products, {
+Brand.hasMany(Product, {
   foreignKey: 'brandId',
 })
 
-// categories
-Categories.hasMany(Products, {
+// Category
+Category.hasMany(Product, {
   foreignKey: 'categoryId',
 });
 
-// products
-Products.belongsTo(Brands, {
+// product
+Product.belongsTo(Brand, {
   foreignKey: 'brandId',
 });
-Products.belongsTo(Categories, {
+Product.belongsTo(Category, {
   foreignKey: 'categoryId',
 });
-Products.belongsToMany(Cart, {
-  through: 'CartProducts',
+Product.belongsToMany(Cart, {
+  through: 'CartProduct',
   foreignKey: 'productId'
 });
-Products.hasMany(Wishing, {
+Product.hasMany(Wishing, {
   foreignKey: 'productId',
 });
-Products.hasMany(Variation, {
+Product.hasMany(Variation, {
   foreignKey: 'productId',
 });
-
-// user:
-Users.hasMany(Cart, {
-  foreignKey: 'userId'
-});
-Users.hasMany(Wishing, {
-  foreignKey: 'userId'
-});
-Users.hasMany(Addresses, {
-  foreignKey: 'userId'
-});
-
-
 // address
-Addresses.belongsTo(Orders, {
+Address.belongsTo(Order, {
   foreignKey: 'orderId'
 });
-Addresses.belongsTo(Users, {
+Address.belongsTo(User, {
   foreignKey: 'userId'
+});
+
+// order
+Order.belongsTo(Cart, {
+  foreignKey: 'cartId'
+});
+Order.hasMany(Address, {
+  foreignKey: 'orderId'
 });
 
 // cart
-Cart.belongsTo(Users, {
+Cart.belongsTo(User, {
   foreignKey: 'userId'
 });
-Cart.belongsToMany(Products, {
-  through: 'CartProducts',
+Cart.belongsToMany(Product, {
+  through: 'CartProduct',
   foreignKey: 'cartId',
 });
-Cart.hasMany(Orders, {
+Cart.hasMany(Order, {
   foreignKey: 'cartId'
 })
 
-// order
-Orders.belongsTo(Cart, {
-  foreignKey: 'cartId'
-});
-Orders.hasMany(Addresses, {
-  foreignKey: 'orderId'
-});
 
-// cart products
-CartProducts.belongsTo(Products, {
-  foreignKey: 'productId',
-});
-CartProducts.belongsTo(Cart, {
-  foreignKey: 'cartId',
-});
-CartProducts.belongsToMany(VariationOption, {
-  through: 'CPVO',
-  foreignKey: 'cartProductId', 
-  otherKey: 'variationOptionId',
-});
-
-
-VariationOption.belongsTo(Variation, {
-  foreignKey: 'variationId',
-});
-VariationOption.belongsToMany(CartProducts, {
-  through: 'CPVO',
-  foreignKey: 'variationOptionId', 
-  otherKey: 'cartProductId',
-});
 
 // Variation
-Variation.belongsTo(Products, {
+Variation.belongsTo(Product, {
   foreignKey: 'productId',
 });
 Variation.hasMany(VariationOption,{
   foreignKey: 'variationId',
 });
 
+//VariationOption
+VariationOption.belongsTo(Variation, {
+  foreignKey: 'variationId',
+});
+VariationOption.belongsToMany(CartProduct, {
+  through: 'CPVO',
+  foreignKey: 'variationOptionId', 
+  otherKey: 'cartProductId',
+});
+
+
 // wishing:
-Wishing.belongsTo(Users, {
+Wishing.belongsTo(User, {
   foreignKey: 'userId',
 });
-Wishing.belongsTo(Products, {
+Wishing.belongsTo(Product, {
   foreignKey: 'productId',
 })
 
+
+
+
+// cart product
+CartProduct.belongsTo(Product, {
+  foreignKey: 'productId',
+});
+CartProduct.belongsTo(Cart, {
+  foreignKey: 'cartId',
+});
+CartProduct.belongsToMany(VariationOption, {
+  through: 'CPVO',
+  foreignKey: 'cartProductId', 
+  otherKey: 'variationOptionId',
+});
+
+
+
+
+
 export default {
-  Addresses,
-  Brands,
+  Address,
+  Brand,
   Cart,
-  CartProducts,
-  CartProductsVariationsOptions,
-  Categories,
-  Orders,
-  Products,
-  Users,
+  CartProduct,
+  CartProductVariationOption,
+  Category,
+  Order,
+  Product,
+  User,
   Variation,
   VariationOption,
   Wishing,

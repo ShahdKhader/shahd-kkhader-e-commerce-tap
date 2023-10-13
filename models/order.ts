@@ -5,7 +5,7 @@ import {
 } from 'sequelize';
 import sequelize from './sequelize';
 
-interface OrdersAttributes {
+interface OrderAttributes {
   id?: number;
   status: string;
   price: number;
@@ -18,7 +18,7 @@ interface OrdersAttributes {
   cartId: number;
 }
 
-class Orders extends Model<OrdersAttributes> implements OrdersAttributes {
+class Order extends Model<OrderAttributes> implements OrderAttributes {
   id!: number;
   status!: string;
   price!: number;
@@ -30,7 +30,7 @@ class Orders extends Model<OrdersAttributes> implements OrdersAttributes {
   total!: number;
   cartId!: number;
 }
-Orders.init({
+Order.init({
   id: {
     type: DataTypes.INTEGER,
     allowNull: false,
@@ -79,7 +79,9 @@ Orders.init({
   }
 }, {
   sequelize,
-  modelName: 'Orders',
+  modelName: 'Order',
+  tableName: 'Order',
+
 });
 
-export default Orders;
+export default Order;
