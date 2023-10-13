@@ -50,34 +50,6 @@ Product.hasMany(Wishing, {
 Product.hasMany(Variation, {
   foreignKey: 'productId',
 });
-// address
-Address.belongsTo(Order, {
-  foreignKey: 'orderId'
-});
-Address.belongsTo(User, {
-  foreignKey: 'userId'
-});
-
-// order
-Order.belongsTo(Cart, {
-  foreignKey: 'cartId'
-});
-Order.hasMany(Address, {
-  foreignKey: 'orderId'
-});
-
-// cart
-Cart.belongsTo(User, {
-  foreignKey: 'userId'
-});
-Cart.belongsToMany(Product, {
-  through: 'CartProduct',
-  foreignKey: 'cartId',
-});
-Cart.hasMany(Order, {
-  foreignKey: 'cartId'
-})
-
 
 
 // Variation
@@ -98,17 +70,17 @@ VariationOption.belongsToMany(CartProduct, {
   otherKey: 'cartProductId',
 });
 
-
-// wishing:
-Wishing.belongsTo(User, {
-  foreignKey: 'userId',
+// cart
+Cart.belongsTo(User, {
+  foreignKey: 'userId'
 });
-Wishing.belongsTo(Product, {
-  foreignKey: 'productId',
+Cart.belongsToMany(Product, {
+  through: 'CartProduct',
+  foreignKey: 'cartId',
+});
+Cart.hasMany(Order, {
+  foreignKey: 'cartId'
 })
-
-
-
 
 // cart product
 CartProduct.belongsTo(Product, {
@@ -123,6 +95,31 @@ CartProduct.belongsToMany(VariationOption, {
   otherKey: 'variationOptionId',
 });
 
+// order
+Order.belongsTo(Cart, {
+  foreignKey: 'cartId'
+});
+Order.hasMany(Address, {
+  foreignKey: 'orderId'
+});
+
+
+
+// address
+Address.belongsTo(Order, {
+  foreignKey: 'orderId'
+});
+Address.belongsTo(User, {
+  foreignKey: 'userId'
+});
+
+// wishing:
+Wishing.belongsTo(User, {
+  foreignKey: 'userId',
+});
+Wishing.belongsTo(Product, {
+  foreignKey: 'productId',
+})
 
 
 
